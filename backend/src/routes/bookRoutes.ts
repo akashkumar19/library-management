@@ -12,4 +12,4 @@ export const createBookRouter = (controller: BookController) => {
     router.patch("/:id/borrow", controller.borrowBook);
   
     return router;
-  };
+};
