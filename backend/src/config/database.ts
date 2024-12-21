@@ -2,9 +2,9 @@ import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 
 const dbPath = process.env.DB_PATH || "./lms.db";
-export const initializeDatabase = async () => {
+export const initializeDatabase = async (path?: string) => {
   const db = await open({
-    filename: dbPath,
+    filename: path || dbPath,
     driver: sqlite3.Database,
   });
 
