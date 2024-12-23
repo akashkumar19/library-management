@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PaginatedResponse } from '../core/models/paginatedresponse.model';
 import { Book, BookFilters, Borrower } from '../models';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:3002/api';
 const convertFiltersToParams = (filters: BookFilters & { page: number; perPage: number }) => {
     const params: Record<string, string> = {
         page: filters.page.toString(),
