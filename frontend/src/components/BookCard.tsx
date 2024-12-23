@@ -95,7 +95,7 @@ const BookCard: React.FC<BookCardProps> = ({
           onClick={() => onEdit(id)}
           style={{ marginRight: "8px" }}
         >
-          Edit
+          EDIT
         </Button>
         <Button
           size="medium"
@@ -104,7 +104,7 @@ const BookCard: React.FC<BookCardProps> = ({
           onClick={() => onDelete(id)}
           style={{ marginRight: "8px" }}
         >
-          Delete
+          DELETE
         </Button>
         <Button
           size="medium"
@@ -112,7 +112,7 @@ const BookCard: React.FC<BookCardProps> = ({
           themeColor={available ? "success" : "warning"}
           onClick={() => onBorrowOrReturn(id)}
         >
-          {available ? "Borrow" : "Return"}
+          {available ? "BORROW" : "RETURN"}
         </Button>
       </CardActions>
     </Card>
