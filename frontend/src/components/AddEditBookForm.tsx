@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { TextField, Button, Box, Divider, MenuItem } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, Box, Divider, MenuItem } from "@mui/material";
+import { Button } from "@progress/kendo-react-buttons";
 import { GENRES } from "../core/constants/genre";
 
 interface AddEditBookFormProps {
@@ -87,8 +88,8 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
         flexItem
         sx={{ marginTop: 2, marginBottom: 2 }}
       />
-      <Button type="submit" variant="contained" color="primary" fullWidth>
-        Submit
+      <Button size="large" type="submit" fillMode={"solid"}  style={{width: '100%', backgroundColor: "#1976d2", color: "#fff"}}>
+        SUBMIT
       </Button>
     </Box>
   );
