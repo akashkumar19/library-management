@@ -67,7 +67,6 @@ const Dashboard: React.FC = () => {
       setBooks(response.data || []);
       setPagination(response.pagination);
       setLoading(false);
-      console.log(pagination, response.pagination);
     } catch (error) {
       setNotification({
         type: "error",
@@ -122,7 +121,6 @@ const Dashboard: React.FC = () => {
   const handleBorrowOrReturn = (book: any) => {
     setBorrowSelectedBook(book);
     if (book.available) {
-      console.log("ddddd");
       setIsBorrowModalOpen(true);
     } else {
       setIsReturnModalOpen(true);
@@ -177,7 +175,7 @@ const Dashboard: React.FC = () => {
               sx={{
                 display: "flex",
                 flexWrap: "wrap",
-                gap: 3,
+                gap: "2rem",
                 justifyContent: "center",
                 alignItems: "flex-start",
                 padding: 3,

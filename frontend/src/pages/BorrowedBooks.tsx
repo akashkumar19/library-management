@@ -48,10 +48,14 @@ const BorrowedBooks: React.FC = () => {
       {borrowedBooks.length === 0 ? (
         <div
           style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             textAlign: "center",
             marginTop: "20px",
             fontSize: "18px",
             color: "#555",
+            minHeight: "70vh",
           }}>
           📚 No books are currently borrowed. Enjoy a good read! 😊
         </div>
@@ -60,7 +64,7 @@ const BorrowedBooks: React.FC = () => {
           <Typography variant="h4" align="center" marginBottom={2}>
             Borrowed Books
           </Typography>
-          <Paper elevation={5}>
+          <Paper elevation={5} sx={{ minHeight: "70vh", boxShadow: 3}}>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead style={{ backgroundColor: "#f5f5f5" }}>
