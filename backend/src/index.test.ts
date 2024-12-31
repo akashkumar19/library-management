@@ -14,7 +14,6 @@ describe('Application Test', () => {
     const dbPath = './test.db';
 
     beforeAll(async () => {
-        // Initialize database and controller as per index.ts setup
         db = await initializeDatabase(dbPath);
         bookController = new BookController(db);
         app = express();
@@ -25,7 +24,6 @@ describe('Application Test', () => {
     });
 
     afterAll(async () => {
-        // Close database connection after tests
         if (db) {
             await db.close();
         }
@@ -37,16 +35,13 @@ describe('Application Test', () => {
     });
 
     beforeEach(async () => {
-        // Insert test data before each test
         await db.run(`INSERT INTO books (title, author, genre, isbn) VALUES 
       ('Test Book 1', 'Author 1', 'Genre 1', '111111'),
       ('Test Book 2', 'Author 2', 'Genre 2', '222222')`);
     });
 
     afterEach(async () => {
-        // Clear test data after each test
         await db.run('DELETE FROM books');
-        // Reset the auto-increment sequence for the primary key
         await db.run('DELETE FROM sqlite_sequence WHERE name="books"');
     });
 
