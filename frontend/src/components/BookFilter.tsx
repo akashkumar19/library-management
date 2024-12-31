@@ -1,5 +1,5 @@
-import { Box, TextField, MenuItem, Button } from "@mui/material";
-import React from "react";
+import { Box, TextField, MenuItem, Button, debounce } from "@mui/material";
+import React, { useState, useCallback } from "react";
 import { GENRES } from "../core/constants/genre";
 
 interface BookFilterProps {
@@ -19,6 +19,43 @@ const BookFilter = ({
   handleClearFilters,
 }: BookFilterProps) => {
   const genreList = GENRES;
+
+  const [localFilters, setLocalFilters] = useState(filters);
+
+  const debouncedTransmitFilters = useCallback(
+    debounce((updatedFilters: typeof localFilters) => {
+      Object.entries(updatedFilters).forEach(([key, value]) => {
+        handleFilterChange({
+          target: { name: key, value } as HTMLInputElement,
+        } as React.ChangeEvent<HTMLInputElement>);
+      });
+    }, 500),
+    [handleFilterChange]
+  );
+
+  const handleLocalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    // Update local state
+    const updatedFilters = { ...localFilters, [name]: value };
+    setLocalFilters(updatedFilters);
+
+    // Trigger debounced transmission to parent
+    debouncedTransmitFilters(updatedFilters);
+  };
+
+  const handleClearAllFilters = () => {
+    const clearedFilters = {
+      search: "",
+      author: "",
+      genre: "",
+      availability: "",
+    };
+
+    setLocalFilters(clearedFilters);
+    handleClearFilters();
+  };
+
   return (
     <Box
       sx={{
@@ -36,8 +73,8 @@ const BookFilter = ({
         name="search"
         label="Search"
         variant="outlined"
-        value={filters.search}
-        onChange={handleFilterChange}
+        value={localFilters.search}
+        onChange={handleLocalChange}
         sx={{
           flex: "1 1 200px",
           minWidth: "200px",
@@ -47,8 +84,8 @@ const BookFilter = ({
         name="author"
         label="Author"
         variant="outlined"
-        value={filters.author}
-        onChange={handleFilterChange}
+        value={localFilters.author}
+        onChange={handleLocalChange}
         sx={{
           flex: "1 1 200px",
           minWidth: "200px",
@@ -59,8 +96,8 @@ const BookFilter = ({
         name="genre"
         label="Genre"
         variant="outlined"
-        value={filters.genre}
-        onChange={handleFilterChange}
+        value={localFilters.genre}
+        onChange={handleLocalChange}
         sx={{
           flex: "1 1 200px",
           minWidth: "200px",
@@ -76,8 +113,8 @@ const BookFilter = ({
         name="availability"
         label="Availability"
         variant="outlined"
-        value={filters.availability}
-        onChange={handleFilterChange}
+        value={localFilters.availability}
+        onChange={handleLocalChange}
         sx={{
           flex: "1 1 200px",
           minWidth: "200px",
@@ -89,7 +126,7 @@ const BookFilter = ({
       <Button
         variant="contained"
         color="secondary"
-        onClick={handleClearFilters}
+        onClick={handleClearAllFilters}
         sx={{ height: "fit-content" }}>
         Clear All
       </Button>
