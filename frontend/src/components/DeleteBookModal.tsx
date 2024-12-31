@@ -30,7 +30,7 @@ const DeleteBookModal: React.FC<DeleteBookModalProps> = ({
       onDeleteSuccess(); // Refresh parent data
       onClose(); // Close the modal
     } catch (error) {
-      console.error("Error deleting book:", error);
+      console.log("Error deleting book:", error);
       setNotification({
         type: "error",
         message: "Error deleting book",
