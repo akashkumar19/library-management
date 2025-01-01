@@ -1,5 +1,6 @@
 export const GENRES = [
     "Action",
+    "Fiction",
     "Adventure",
     "Comedy",
     "Drama",

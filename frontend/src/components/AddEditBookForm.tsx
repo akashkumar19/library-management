@@ -36,62 +36,61 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{ maxWidth: 500, margin: "auto" }}>
-      <TextField
-        label="Title"
-        name="title"
-        value={formData.title}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required
-      />
-      <TextField
-        label="Author"
-        name="author"
-        value={formData.author}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required
-      />
-      <TextField
-        select
-        label="Genre"
-        name="genre"
-        value={formData.genre}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required>
-        {genreList.map((genre) => (
-          <MenuItem key={genre} value={genre}>
-            {genre.charAt(0).toUpperCase() + genre.slice(1)}
-          </MenuItem>
-        ))}
-      </TextField>
+    <form onSubmit={handleSubmit}>
+      <Box sx={{ maxWidth: 500, margin: "auto" }}>
+        <TextField
+          label="Title"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          label="Author"
+          name="author"
+          value={formData.author}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <TextField
+          select
+          label="Genre"
+          name="genre"
+          value={formData.genre}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required>
+          {genreList.map((genre) => (
+            <MenuItem key={genre} value={genre}>
+              {genre.charAt(0).toUpperCase() + genre.slice(1)}
+            </MenuItem>
+          ))}
+        </TextField>
 
-      <TextField
-        label="ISBN"
-        name="isbn"
-        value={formData.isbn}
-        onChange={handleChange}
-        fullWidth
-        margin="normal"
-        required
-      />
-      <Divider
-        orientation="horizontal"
-        flexItem
-        sx={{ marginTop: 2, marginBottom: 2 }}
-      />
-      <Button size="large" type="submit" fillMode={"solid"}  style={{width: '100%', backgroundColor: "#1976d2", color: "#fff"}}>
-        SUBMIT
-      </Button>
-    </Box>
+        <TextField
+          label="ISBN"
+          name="isbn"
+          value={formData.isbn}
+          onChange={handleChange}
+          fullWidth
+          margin="normal"
+          required
+        />
+        <Divider
+          orientation="horizontal"
+          flexItem
+          sx={{ marginTop: 2, marginBottom: 2 }}
+        />
+        <Button size="large" type="submit" fillMode={"solid"} style={{ width: '100%', backgroundColor: "#1976d2", color: "#fff" }}>
+          SUBMIT
+        </Button>
+      </Box>
+    </form>
   );
 };
 

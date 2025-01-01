@@ -26,7 +26,7 @@ export const AddBook: React.FC = () => {
         message: "Book created successfully!",
       });
     } catch (error: any) {
-      console.error("Error updating book:", error);
+      console.error("Error adding book:", error);
       setNotification({
         type: "error",
         message: error.response.data.details,
