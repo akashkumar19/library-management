@@ -24,7 +24,7 @@ The Library Management System is a web application designed to help manage a lib
 ## Project Structure
 
 ```plaintext
-library-management-system/
+library-management/
 ├── backend/
 │   ├── config/
 │   │   └── database.ts
@@ -100,7 +100,7 @@ library-management-system/
 ### Backend
   1. Navigate to the backend directory:
   ```shell
-  cd library-management-system/backend
+  cd library-management/backend
   ```
   2. Install dependencies:
   ```shell
@@ -113,7 +113,7 @@ library-management-system/
 ### Frontend
   1. Navigate to the frontend directory:
   ```shell
-  cd library-management-system/frontend
+  cd library-management/frontend
   ```
   2. Install dependencies:
   ```shell
