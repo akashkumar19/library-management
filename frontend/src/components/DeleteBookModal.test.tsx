@@ -57,7 +57,8 @@ describe("DeleteBookModal", () => {
   });
 
   it("should handle delete failure", async () => {
-    (BookService.deleteBook as jest.Mock).mockRejectedValueOnce(new Error("Error deleting book"));
+    const errorResponse = { response: { data: { details: "Error deleting book" } } };
+    (BookService.deleteBook as jest.Mock).mockRejectedValueOnce(errorResponse);
 
     render(
       <DeleteBookModal

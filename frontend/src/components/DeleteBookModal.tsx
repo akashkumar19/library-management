@@ -29,11 +29,11 @@ const DeleteBookModal: React.FC<DeleteBookModalProps> = ({
       });
       onDeleteSuccess(); // Refresh parent data
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.log("Error deleting book:", error);
       setNotification({
         type: "error",
-        message: "Error deleting book",
+        message: error.response.data.details,
       });
     }
   };
