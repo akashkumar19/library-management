@@ -32,7 +32,7 @@ describe("EditBookModal", () => {
       />
     );
 
-    // Check if modal elements are rendered
+    // Check if elements are rendered
     expect(screen.getByText(/Edit Book/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(book.title)).toBeInTheDocument();
     expect(screen.getByDisplayValue(book.author)).toBeInTheDocument();
@@ -53,7 +53,7 @@ describe("EditBookModal", () => {
       />
     );
 
-    // Simulate the form submission
+    // form submission
     const submitButton = screen.getByText(/Submit/i);
     fireEvent.click(submitButton);
 

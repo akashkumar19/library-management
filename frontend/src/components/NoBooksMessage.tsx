@@ -2,7 +2,7 @@ import { Divider } from "@mui/material";
 import React from "react";
 
 interface NoBooksMessageProps {
-  onClearFilters?: () => void; // Optional prop for clearing filters
+  onClearFilters?: () => void;
 }
 
 const NoBooksMessage: React.FC<NoBooksMessageProps> = ({ onClearFilters }) => (

@@ -1,5 +1,5 @@
-import { Box, TextField, MenuItem, Button, debounce } from "@mui/material";
-import React, { useState, useCallback } from "react";
+import { Box, Button, debounce, MenuItem, TextField } from "@mui/material";
+import React, { useCallback, useState } from "react";
 import { GENRES } from "../core/constants/genre";
 
 interface BookFilterProps {
@@ -40,7 +40,7 @@ const BookFilter = ({
     const updatedFilters = { ...localFilters, [name]: value };
     setLocalFilters(updatedFilters);
 
-    // Trigger debounced transmission to parent
+    // Update parent state
     debouncedTransmitFilters(updatedFilters);
   };
 

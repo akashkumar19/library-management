@@ -38,7 +38,7 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({
         message: `Congratulations ${borrowerName}! You have successfully borrowed ${book.title}.`,
       });
       onBorrowSuccess(); // Refresh parent data
-      onClose(); // Close the modal
+      onClose();
     } catch (error) {
       console.error("Error borrowing book:", error);
       setNotification({
@@ -49,7 +49,7 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} aria-labelledby="Borrow Book Modal" aria-describedby="Modal for borrowing a book">
       <Box
         sx={{
           maxWidth: 400,

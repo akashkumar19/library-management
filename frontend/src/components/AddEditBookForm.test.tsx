@@ -36,7 +36,7 @@ describe("AddEditBookForm", () => {
     fireEvent.mouseDown(genreInput);
     const option = screen.getByText(new RegExp(GENRES[0], "i"));
     fireEvent.click(option);
-    // Assert values
+
     expect(titleInput).toHaveValue("New Title");
     expect(authorInput).toHaveValue("New Author");
     expect(isbnInput).toHaveValue("9876543210");

@@ -28,7 +28,7 @@ const DeleteBookModal: React.FC<DeleteBookModalProps> = ({
         message: "Book deleted successfully!",
       });
       onDeleteSuccess(); // Refresh parent data
-      onClose(); // Close the modal
+      onClose();
     } catch (error) {
       console.log("Error deleting book:", error);
       setNotification({
@@ -39,7 +39,7 @@ const DeleteBookModal: React.FC<DeleteBookModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} aria-labelledby="Delete Book Modal" aria-describedby="Modal for deleting a book">
       <Box
         sx={{
           maxWidth: 400,

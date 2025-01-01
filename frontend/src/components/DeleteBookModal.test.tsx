@@ -26,13 +26,11 @@ describe("DeleteBookModal", () => {
       />
     );
 
-    // Check if the modal is rendered with correct title and book name
     expect(screen.getByText(/confirm delete/i)).toBeInTheDocument();
     expect(screen.getByText(/Are you sure you want to delete the book/i)).toBeInTheDocument();
   });
 
   it("should handle successful delete", async () => {
-    // Mock the resolved value of deleteBook
     (BookService.deleteBook as jest.Mock).mockResolvedValueOnce({});
 
     render(
@@ -45,7 +43,7 @@ describe("DeleteBookModal", () => {
       />
     );
 
-    // Simulate clicking the delete button
+    // clicking the delete button
     const deleteButton = screen.getByRole("button", { name: /delete/i });
     fireEvent.click(deleteButton);
 
@@ -59,7 +57,6 @@ describe("DeleteBookModal", () => {
   });
 
   it("should handle delete failure", async () => {
-    // Mock the rejected value of deleteBook
     (BookService.deleteBook as jest.Mock).mockRejectedValueOnce(new Error("Error deleting book"));
 
     render(
@@ -72,7 +69,7 @@ describe("DeleteBookModal", () => {
       />
     );
 
-    // Simulate clicking the delete button
+    // clicking the delete button
     const deleteButton = screen.getByRole("button", { name: /delete/i });
     fireEvent.click(deleteButton);
 
@@ -95,7 +92,7 @@ describe("DeleteBookModal", () => {
       />
     );
 
-    // Simulate clicking the cancel button
+    // clicking the cancel button
     fireEvent.click(screen.getByText(/cancel/i));
 
     expect(mockOnClose).toHaveBeenCalled();

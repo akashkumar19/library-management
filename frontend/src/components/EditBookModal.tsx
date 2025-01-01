@@ -35,7 +35,7 @@ const EditBookModal: React.FC<EditBookModalProps> = ({
         message: "Book updated successfully!",
       });
       onSave(); // Refresh parent data
-      onClose(); // Close the modal
+      onClose();
     } catch (error: any) {
       console.error("Error updating book:", error);
       setNotification({
@@ -46,7 +46,8 @@ const EditBookModal: React.FC<EditBookModalProps> = ({
   };
   return (
     <>
-      <Modal open={open} onClose={onClose}>
+      <Modal open={open} onClose={onClose} aria-labelledby="Edit Book Modal"
+  aria-describedby="Modal for editing a book">
         <Box
           sx={{
             maxWidth: 500,

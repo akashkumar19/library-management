@@ -70,7 +70,6 @@ describe("BorrowBookModal", () => {
       />
     );
 
-    // Fill input fields
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: "John Doe" } });
     fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: "john@example.com" } });
     fireEvent.change(screen.getByLabelText(/Phone/i), { target: { value: "1234567890" } });
@@ -108,12 +107,11 @@ describe("BorrowBookModal", () => {
       />
     );
 
-    // Fill input fields
     fireEvent.change(screen.getByLabelText(/Name/i), { target: { value: "John Doe" } });
     fireEvent.change(screen.getByLabelText(/Email/i), { target: { value: "john@example.com" } });
     fireEvent.change(screen.getByLabelText(/Phone/i), { target: { value: "1234567890" } });
 
-    // Simulate clicking the "Borrow" button
+    // clicking the "Borrow" button
     const borrowButton = screen.getByRole("button", { name: /borrow/i });
     fireEvent.click(borrowButton);
 

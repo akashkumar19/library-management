@@ -28,7 +28,7 @@ const ReturnBookModal: React.FC<ReturnBookModalProps> = ({
         message: "Book returned successfully!",
       });
       onReturnSuccess(); // Refresh parent data
-      onClose(); // Close the modal
+      onClose();
     } catch (error) {
       console.error("Error returning book:", error);
       setNotification({
@@ -39,7 +39,7 @@ const ReturnBookModal: React.FC<ReturnBookModalProps> = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal open={open} onClose={onClose} aria-labelledby="Return Book Modal" aria-describedby="Modal for returning a book">
       <Box
         sx={{
           maxWidth: 400,
