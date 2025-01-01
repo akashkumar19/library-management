@@ -141,8 +141,8 @@ library-management-system/
   - POST /api/books: Add a new book
   - PUT /api/books/:id: Update a book
   - DELETE /api/books/:id: Delete a book
-  - POST /api/books/:id/borrow?action=borrow: Borrow a book
-  - POST /api/books/:id/borrow?action=return: Return a book
+  - PATCH /api/books/:id/borrow?action=borrow: Borrow a book
+  - PATCH /api/books/:id/borrow?action=return: Return a book
 ### Contributing
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
