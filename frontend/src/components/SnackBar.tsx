@@ -9,6 +9,9 @@ interface SnackBarProps {
     setNotification: (notification: any) => void;
 }
 const SnackBar = ({notification, setNotification}: SnackBarProps) => {
+  setTimeout(() => {
+    setNotification(null);
+  }, 5000);
   return (
     <NotificationGroup style={{ top: 70, right: 0, alignItems: "flex-end", zIndex: 1000 }}>
       <Notification
