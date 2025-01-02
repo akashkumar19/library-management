@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import { Notification } from "@progress/kendo-react-notification";
 import React, { useState } from "react";
 import AddEditBookForm from "../components/AddEditBookForm";
+import SnackBar from "../components/SnackBar";
 import { Book } from "../models";
 import { BookService } from "../services/BookService";
 
@@ -53,21 +53,7 @@ export const AddBook: React.FC = () => {
         <AddEditBookForm onSubmit={handleSubmit} />
       </Paper>
       {notification && (
-        <Notification
-          type={{
-            style: notification.type === "success" ? "success" : "error",
-            icon: true,
-          }}
-          closable={true}
-          onClose={() => setNotification(null)}
-          style={{
-            position: "fixed",
-            bottom: "1rem",
-            left: "1rem",
-            zIndex: 1000,
-          }}>
-          <Typography>{notification.message}</Typography>
-        </Notification>
+       <SnackBar notification={notification} setNotification={setNotification} />
       )}
     </>
   );

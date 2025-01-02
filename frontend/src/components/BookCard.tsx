@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Chip, Typography } from "@mui/material";
 import { Button } from "@progress/kendo-react-buttons";
 import { Card, CardActions, CardBody, CardHeader } from "@progress/kendo-react-layout";
 import React from "react";
@@ -62,16 +62,7 @@ const BookCard: React.FC<BookCardProps> = ({
         </Typography>
         <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
           <strong>Genre:</strong>{" "}
-          <span
-            style={{
-              backgroundColor: "#e0f7fa",
-              color: "#00796b",
-              padding: "4px 8px",
-              borderRadius: "16px",
-            }}
-          >
-            {genre}
-          </span>
+          <Chip label={genre} sx={{ backgroundColor: "#e0f7fa", color: "#00796b" }} />
         </Typography>
         <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
           <strong>ISBN:</strong> {isbn}
@@ -82,31 +73,31 @@ const BookCard: React.FC<BookCardProps> = ({
             marginTop: "8px",
           }}
         >
-          {available ? "Available" : `Borrowed by ${borrowerName || "N/A"}`}
+          {available ? (<Chip label="Available" color="success" variant="outlined" />) : `Borrowed by ${borrowerName || "N/A"}`}
         </Typography>
       </CardBody>
       <CardActions style={{ justifyContent: "space-between" }}>
         <Button
           size="medium"
           themeColor={"tertiary"}
-          fillMode="flat"
+          fillMode="outline"
           onClick={() => onEdit(id)}
           style={{ marginRight: "8px" }}
         >
           EDIT
         </Button>
-        <Button
+        {available ? (<Button
           size="medium"
           themeColor={"error"}
-          fillMode="flat"
+          fillMode="outline"
           onClick={() => onDelete(id)}
           style={{ marginRight: "8px" }}
         >
           DELETE
-        </Button>
+        </Button>): null}
         <Button
           size="medium"
-          fillMode="flat"
+          fillMode="outline"
           themeColor={available ? "success" : "warning"}
           onClick={() => onBorrowOrReturn(id)}
         >

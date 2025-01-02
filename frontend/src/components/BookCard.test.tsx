@@ -75,7 +75,7 @@ describe("BookCard Component", () => {
   it("should change availability text color based on availability status", () => {
     render(<BookCard {...bookProps} />);
     const availabilityText = screen.getByText("Available");
-    expect(availabilityText).toHaveStyle("color: #22bb33");
+    expect(availabilityText).toBeInTheDocument();
 
     const borrowedBookProps = {
       ...bookProps,

@@ -2,10 +2,8 @@ import {
   Box,
   CircularProgress,
   Pagination,
-  Stack,
-  Typography,
+  Stack
 } from "@mui/material";
-import { Notification } from "@progress/kendo-react-notification";
 import React, { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
 import BookFilter from "../components/BookFilter";
@@ -14,6 +12,7 @@ import DeleteBookModal from "../components/DeleteBookModal";
 import EditBookModal from "../components/EditBookModal";
 import NoBooksMessage from "../components/NoBooksMessage";
 import ReturnBookModal from "../components/ReturnBookModal";
+import SnackBar from "../components/SnackBar";
 import { PaginationObject } from "../core/models/paginatedresponse.model";
 import { Book } from "../models";
 import { BookService } from "../services/BookService";
@@ -257,21 +256,10 @@ const Dashboard: React.FC = () => {
       )}
       {/* Notification */}
       {notification && (
-        <Notification
-          type={{
-            style: notification.type === "success" ? "success" : "error",
-            icon: true,
-          }}
-          closable={true}
-          onClose={() => setNotification(null)}
-          style={{
-            position: "fixed",
-            bottom: "1rem",
-            left: "1rem",
-            zIndex: 1000,
-          }}>
-          <Typography>{notification.message}</Typography>
-        </Notification>
+        <SnackBar
+          notification={notification}
+          setNotification={setNotification}
+        />
       )}
     </>
   );
