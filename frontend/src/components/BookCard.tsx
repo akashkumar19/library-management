@@ -80,25 +80,32 @@ const BookCard: React.FC<BookCardProps> = ({
         <Button
           size="medium"
           themeColor={"tertiary"}
-          fillMode="outline"
+          fillMode="solid"
           onClick={() => onEdit(id)}
-          style={{ marginRight: "8px" }}
+          style={{ marginRight: "8px", color: "#000000" }}
         >
           EDIT
         </Button>
         {available ? (<Button
           size="medium"
           themeColor={"error"}
-          fillMode="outline"
+          fillMode="solid"
           onClick={() => onDelete(id)}
-          style={{ marginRight: "8px" }}
+          style={{ marginRight: "8px", color: "#FFFFFF", backgroundColor: "#B30000" }}
         >
           DELETE
         </Button>): null}
         <Button
           size="medium"
-          fillMode="outline"
+          fillMode="solid"
           themeColor={available ? "success" : "warning"}
+          style={available ? {
+            backgroundColor: "#006600",
+            color: "#FFFFFF"
+          }: {
+            backgroundColor: "#FF7F50",
+            color: "#141414"
+          }}
           onClick={() => onBorrowOrReturn(id)}
         >
           {available ? "BORROW" : "RETURN"}
