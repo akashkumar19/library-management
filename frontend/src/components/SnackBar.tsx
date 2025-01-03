@@ -1,11 +1,9 @@
-import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
 import { Typography } from "@mui/material";
+import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
+import { NotificationModel } from "../core/models";
 
 interface SnackBarProps {
-    notification: {
-        type: string;
-        message: string;
-    },
+    notification: NotificationModel,
     setNotification: (notification: any) => void;
 }
 const SnackBar = ({notification, setNotification}: SnackBarProps) => {

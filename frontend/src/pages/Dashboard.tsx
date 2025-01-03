@@ -11,6 +11,8 @@ import SnackBar from "../components/SnackBar";
 import { PaginationObject } from "../core/models/paginatedresponse.model";
 import { Book } from "../models";
 import { BookService } from "../services/BookService";
+import CardSkeleton from "../components/CardSkeleton";
+import { NotificationModel } from "../core/models";
 
 const Dashboard: React.FC = () => {
   const [editSelectedBook, setEditSelectedBook] = useState<any | null>(null);
@@ -26,10 +28,7 @@ const Dashboard: React.FC = () => {
   const [isReturnModalOpen, setIsReturnModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [notification, setNotification] = useState<{
-    type: string;
-    message: string;
-  } | null>(null);
+  const [notification, setNotification] = useState<NotificationModel | null>(null);
 
   const [books, setBooks] = useState<Book[]>([]);
   const [pagination, setPagination] = useState<PaginationObject>({
@@ -137,17 +136,27 @@ const Dashboard: React.FC = () => {
   ) => {
     setPagination({ ...pagination, page });
   };
+  const loadingSkeleton = () => {
+    const skeletonList = [];
+    for(let i=0; i<6; i++) {
+      skeletonList.push(<CardSkeleton shape="form" />);
+    }
+    return skeletonList;
+  }
 
   if (loading) {
     return (
       <Box
         sx={{
           display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
           justifyContent: "center",
-          alignItems: "center",
-          height: "80vh",
-        }}>
-        <CircularProgress />
+          alignItems: "flex-start",
+          padding: 3,
+        }}
+      >
+        {loadingSkeleton()}
       </Box>
     );
   }

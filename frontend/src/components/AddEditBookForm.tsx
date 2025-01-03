@@ -12,6 +12,7 @@ interface AddEditBookFormProps {
   ) => void;
 }
 
+const ERROR_MESSAGE = 'Field is required';
 const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit }) => {
   const genreList = GENRES;
   const [formData, setFormData] = useState({
@@ -21,20 +22,53 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
     isbn: initialData?.isbn || "",
   });
 
+  const [error, setError] = useState<BookProps>({
+    title: '',
+    author: '',
+    genre: '',
+    isbn: ''
+  })
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setError((prev) => ({ ...prev, [name]: value === '' ? ERROR_MESSAGE : ''}))
   };
 
+  const validateForm = () => {
+    const newError = {
+      title: '',
+      author: '',
+      genre: '',
+      isbn: ''
+    }
+    if (!formData.title.trim()) {
+      newError.title = ERROR_MESSAGE
+    }
+    if (!formData.author.trim()) {
+      newError.author = ERROR_MESSAGE
+    }
+    if (!formData.genre.trim()) {
+      newError.genre = ERROR_MESSAGE
+    }
+    if (!formData.isbn.trim()) {
+      newError.isbn = ERROR_MESSAGE
+    }
+    setError(newError);
+    return !Object.values(formData).some((val)=>(val === ''))
+  }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData, setFormData);
+    if(validateForm()) {
+      onSubmit(formData, setFormData);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Box sx={{ maxWidth: 500, margin: "auto" }}>
+    <form noValidate onSubmit={handleSubmit}>
+      <Box sx={{ maxWidth: 500 }}>
         <TextField
+          error={!!error.title}
           label="Title"
           name="title"
           value={formData.title}
@@ -42,8 +76,10 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           fullWidth
           margin="normal"
           required
+          helperText={error.title}
         />
         <TextField
+          error={!!error.author}
           label="Author"
           name="author"
           value={formData.author}
@@ -51,8 +87,10 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           fullWidth
           margin="normal"
           required
+          helperText={error.author}
         />
         <TextField
+          error={!!error.genre}
           select
           label="Genre"
           name="genre"
@@ -60,7 +98,8 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           onChange={handleChange}
           fullWidth
           margin="normal"
-          required>
+          required
+          helperText={error.genre}>
           {genreList.map((genre) => (
             <MenuItem key={genre} value={genre}>
               {genre.charAt(0).toUpperCase() + genre.slice(1)}
@@ -69,6 +108,7 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
         </TextField>
 
         <TextField
+          error={!!error.isbn}
           label="ISBN"
           name="isbn"
           value={formData.isbn}
@@ -76,6 +116,7 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           fullWidth
           margin="normal"
           required
+          helperText={error.isbn}
         />
         <Divider
           orientation="horizontal"

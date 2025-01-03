@@ -11,21 +11,31 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import SnackBar from "../components/SnackBar";
+import { NotificationModel } from "../core/models";
 import { Book } from "../models";
 import { BookService } from "../services/BookService";
 
 const BorrowedBooks: React.FC = () => {
+  const [notification, setNotification] = useState<NotificationModel | null>(null);
   const [borrowedBooks, setBorrowedBooks] = useState<Book[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [total, setTotal] = useState(0);
 
   const fetchBorrowedBooks = async () => {
-    const response = await BookService.getBooks(page + 1, rowsPerPage, {
-      availability: false,
-    });
-    setBorrowedBooks(response.data || []);
-    setTotal(response.pagination.totalResultCount || 0);
+    try {
+      const response = await BookService.getBooks(page + 1, rowsPerPage, {
+        availability: false,
+      });
+      setBorrowedBooks(response.data || []);
+      setTotal(response.pagination.totalResultCount || 0);
+    } catch (error) {
+      setNotification({
+        type: 'error',
+        message: "Error Fetching Books"
+      })
+    }
   };
 
   useEffect(() => {
@@ -103,6 +113,9 @@ const BorrowedBooks: React.FC = () => {
             />
           </Paper>
         </>
+      )}
+      {notification && (
+       <SnackBar notification={notification} setNotification={setNotification} />
       )}
     </Box>
   );

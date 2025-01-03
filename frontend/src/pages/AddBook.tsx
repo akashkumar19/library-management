@@ -3,14 +3,12 @@ import Paper from "@mui/material/Paper";
 import React, { useState } from "react";
 import AddEditBookForm from "../components/AddEditBookForm";
 import SnackBar from "../components/SnackBar";
+import { NotificationModel } from "../core/models";
 import { Book } from "../models";
 import { BookService } from "../services/BookService";
 
 export const AddBook: React.FC = () => {
-  const [notification, setNotification] = useState<{
-    type: string;
-    message: string;
-  } | null>(null);
+  const [notification, setNotification] = useState<NotificationModel | null>(null);
   const handleSubmit = async (book: Partial<Book>, setBooks: any) => {
     try {
       await BookService.addBook(book);

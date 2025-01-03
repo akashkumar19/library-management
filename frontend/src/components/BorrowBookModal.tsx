@@ -15,6 +15,8 @@ interface BorrowBookModalProps {
   >;
 }
 
+const ERROR_MESSAGE = 'Field is required';
+
 const BorrowBookModal: React.FC<BorrowBookModalProps> = ({
   open,
   onClose,
@@ -22,34 +24,74 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({
   onBorrowSuccess,
   setNotification,
 }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  })
   const [borrowerName, setBorrowerName] = useState("");
   const [borrowerEmail, setBorrowerEmail] = useState("");
   const [borrowerPhone, setBorrowerPhone] = useState("");
+  const [error, setError] = useState({
+    name: '',
+    email: ''
+  });
 
-  const handleBorrow = async () => {
-    try {
-      await BookService.borrowBook(book.id, {
-        name: borrowerName,
-        email: borrowerEmail,
-        phone: borrowerPhone,
-      });
-      setNotification({
-        type: "success",
-        message: `Congratulations ${borrowerName}! You have successfully borrowed ${book.title}.`,
-      });
-      onBorrowSuccess(); // Refresh parent data
-      onClose();
-    } catch (error) {
-      console.error("Error borrowing book:", error);
-      setNotification({
-        type: "error",
-        message: "Error borrowing book",
-      });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    setError((prev) => ({ ...prev, [name]: value === '' ? ERROR_MESSAGE : ''}));
+  }
+  const validateEmail = (email: string) => {
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+  };
+  const validateForm = async() => {
+    const newError = {
+      name: '',
+      email: ''
+    }
+    if(formData.name === '') {
+      newError.name = ERROR_MESSAGE;
+    }
+    if(formData.email === '') {
+      newError.email = ERROR_MESSAGE;
+    }
+    if(formData.email !== '' && !validateEmail(formData.email)) {
+      newError.email = 'Email ID is not valid'
+    }
+    setError(newError);
+    return !Object.values(newError).some((val)=>(val !== ''))
+  }
+
+  const handleBorrow = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if(await validateForm()) {
+      try {
+        await BookService.borrowBook(book.id, {
+          ...formData
+        });
+        setNotification({
+          type: "success",
+          message: `Congratulations ${formData.name}! You have successfully borrowed ${book.title}.`,
+        });
+        onBorrowSuccess(); // Refresh parent data
+        onClose();
+      } catch (error) {
+        console.error("Error borrowing book:", error);
+        setNotification({
+          type: "error",
+          message: "Error borrowing book",
+        });
+      }
     }
   };
 
   return (
     <Modal open={open} onClose={onClose} aria-labelledby="Borrow Book Modal" aria-describedby="Modal for borrowing a book">
+      <form onSubmit={handleBorrow} noValidate>
+
       <Box
         sx={{
           maxWidth: 400,
@@ -58,7 +100,8 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({
           mt: 5,
           bgcolor: "background.paper",
           borderRadius: 2,
-        }}>
+        }}
+        >
         <Typography variant="h6" align="center" marginBottom={2}>
           Borrow Book
         </Typography>
@@ -66,24 +109,34 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({
           Enter your details to borrow <strong>{book.title}</strong>.
         </Typography>
         <TextField
+          error={!!error.name}
           label="Name"
+          name="name"
           fullWidth
-          value={borrowerName}
-          onChange={(e) => setBorrowerName(e.target.value)}
+          value={formData.name}
+          onChange={handleChange}
           margin="normal"
+          helperText={error.name}
+          required
         />
         <TextField
+          error={!!error.email}
           label="Email"
+          name="email"
           fullWidth
-          value={borrowerEmail}
-          onChange={(e) => setBorrowerEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           margin="normal"
+          type="email"
+          helperText={error.email}
+          required
         />
         <TextField
           label="Phone"
+          name="phone"
           fullWidth
-          value={borrowerPhone}
-          onChange={(e) => setBorrowerPhone(e.target.value)}
+          value={formData.phone}
+          onChange={handleChange}
           margin="normal"
         />
         <Box
@@ -95,11 +148,12 @@ const BorrowBookModal: React.FC<BorrowBookModalProps> = ({
           <Button onClick={onClose} variant="outlined" color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleBorrow} variant="contained" color="success">
+          <Button type="submit" variant="contained" color="success">
             Borrow
           </Button>
         </Box>
       </Box>
+      </form>
     </Modal>
   );
 };
