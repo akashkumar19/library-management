@@ -136,27 +136,13 @@ const Dashboard: React.FC = () => {
   ) => {
     setPagination({ ...pagination, page });
   };
-  const loadingSkeleton = () => {
-    const skeletonList = [];
-    for(let i=0; i<6; i++) {
-      skeletonList.push(<CardSkeleton shape="form" />);
-    }
-    return skeletonList;
-  }
 
   if (loading) {
     return (
       <Box
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "2rem",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          padding: 3,
-        }}
+      sx={{ padding: 2 }}
       >
-        {loadingSkeleton()}
+        <CardSkeleton />
       </Box>
     );
   }
