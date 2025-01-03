@@ -2,15 +2,9 @@ import { Chip, Typography } from "@mui/material";
 import { Button } from "@progress/kendo-react-buttons";
 import { Card, CardActions, CardBody, CardHeader } from "@progress/kendo-react-layout";
 import React from "react";
+import { Book } from "../models";
 
-interface BookCardProps {
-  id: number;
-  title: string;
-  author: string;
-  genre: string;
-  isbn: string;
-  available: boolean;
-  borrowerName?: string;
+interface BookCardProps extends Book {
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
   onBorrowOrReturn: (id: number) => void;
@@ -23,7 +17,7 @@ const BookCard: React.FC<BookCardProps> = ({
   genre,
   isbn,
   available,
-  borrowerName,
+  borrower_name,
   onEdit,
   onDelete,
   onBorrowOrReturn,
@@ -73,7 +67,7 @@ const BookCard: React.FC<BookCardProps> = ({
             marginTop: "8px",
           }}
         >
-          {available ? (<Chip label="Available" color="success" variant="outlined" />) : `Borrowed by ${borrowerName || "N/A"}`}
+          {available ? (<Chip label="Available" color="success" variant="outlined" />) : `Borrowed by ${borrower_name || "N/A"}`}
         </Typography>
       </CardBody>
       <CardActions style={{ justifyContent: "space-between" }}>

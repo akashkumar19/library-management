@@ -1,9 +1,4 @@
-import {
-  Box,
-  CircularProgress,
-  Pagination,
-  Stack
-} from "@mui/material";
+import { Box, CircularProgress, Pagination, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
 import BookFilter from "../components/BookFilter";
@@ -189,7 +184,7 @@ const Dashboard: React.FC = () => {
                   genre={book.genre}
                   isbn={book.isbn}
                   available={book.available}
-                  borrowerName={book.borrower_name}
+                  borrower_name={book.borrower_name}
                   onEdit={() => handleEdit(book)}
                   onDelete={() => handleDelete(book)}
                   onBorrowOrReturn={() => handleBorrowOrReturn(book)}

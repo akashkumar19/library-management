@@ -1,4 +1,3 @@
-import { Borrower } from "./borrower.model";
 
 /**
  * @interface Book
@@ -31,11 +30,28 @@ export interface Book {
  * @param {string} search - Book search
  * @param {string} author - Book author
  * @param {string} genre - Book genre
- * @param {boolean} availability - Book availability
+ * @param {boolean | string} availability - Book availability
  */
 export interface BookFilters {
   search?: string;
   author?: string;
   genre?: string;
-  availability?: boolean;
+  availability?: boolean | string;
+}
+
+/**
+ * @interface BookProps
+ * @description Interface for Book Props
+ * @param {number} id - id 
+ * @param {string} title - title of the book
+ * @param {string} author - Author of the book
+ * @param {string} genre - genre of the book
+ * @param {string} isbn - isbn of the book
+ */
+export interface BookProps {
+  id?: number;
+  title: string;
+  author: string;
+  genre: string;
+  isbn: string;
 }

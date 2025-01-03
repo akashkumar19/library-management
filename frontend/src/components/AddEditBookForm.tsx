@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import { TextField, Box, Divider, MenuItem } from "@mui/material";
+import { Box, Divider, MenuItem, TextField } from "@mui/material";
 import { Button } from "@progress/kendo-react-buttons";
+import React, { useState } from "react";
 import { GENRES } from "../core/constants/genre";
+import { BookProps } from "../models";
 
 interface AddEditBookFormProps {
-  initialData?: {
-    title: string;
-    author: string;
-    genre: string;
-    isbn: string;
-  };
+  initialData?: BookProps;
   onSubmit: (
-    data: { title: string; author: string; genre: string; isbn: string },
+    data: BookProps,
     setBooks: any
   ) => void;
 }

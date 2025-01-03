@@ -1,19 +1,13 @@
 import { Box, Modal, Typography } from "@mui/material";
 import React from "react";
-import { Book } from "../models";
+import { Book, BookProps } from "../models";
 import { BookService } from "../services/BookService";
 import AddEditBookForm from "./AddEditBookForm";
 
 interface EditBookModalProps {
   open: boolean;
   onClose: () => void;
-  book: {
-    id: number;
-    title: string;
-    author: string;
-    genre: string;
-    isbn: string;
-  };
+  book: Required<BookProps>;
   onSave: () => void;
   setNotification: React.Dispatch<
     React.SetStateAction<{ type: string; message: string } | null>

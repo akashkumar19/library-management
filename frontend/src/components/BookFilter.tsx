@@ -1,14 +1,10 @@
 import { Box, Button, debounce, MenuItem, TextField } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { GENRES } from "../core/constants/genre";
+import { BookFilters } from "../models";
 
 interface BookFilterProps {
-  filters: {
-    search: string;
-    author: string;
-    genre: string;
-    availability: string;
-  };
+  filters: BookFilters;
   handleFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClearFilters: () => void;
 }

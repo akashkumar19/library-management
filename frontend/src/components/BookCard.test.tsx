@@ -65,7 +65,7 @@ describe("BookCard Component", () => {
     const borrowedBookProps = {
       ...bookProps,
       available: false,
-      borrowerName: "John Doe",
+      borrower_name: "John Doe",
     };
     render(<BookCard {...borrowedBookProps} />);
     expect(screen.getByText("RETURN")).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe("BookCard Component", () => {
     const borrowedBookProps = {
       ...bookProps,
       available: false,
-      borrowerName: "John Doe",
+      borrower_name: "John Doe",
     };
     render(<BookCard {...borrowedBookProps} />);
     const borrowedText = screen.getByText("Borrowed by John Doe");
