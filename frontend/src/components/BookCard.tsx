@@ -52,14 +52,14 @@ const BookCard: React.FC<BookCardProps> = ({
       </CardHeader>
 
       <CardBody>
-        <Typography color="textSecondary" style={{ marginBottom: "4px" }} aria-label={'Author: '+author}>
+        <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
           <strong>Author:</strong> {author}
         </Typography>
-        <Typography color="textSecondary" style={{ marginBottom: "4px" }} aria-label={'Genre: '+genre}>
+        <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
           <strong>Genre:</strong>{" "}
           <Chip label={genre} sx={{ backgroundColor: "#e0f7fa", color: "#00796b" }} />
         </Typography>
-        <Typography color="textSecondary" style={{ marginBottom: "4px" }} aria-label={'ISBN: '+isbn}>
+        <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
           <strong>ISBN:</strong> {isbn}
         </Typography>
         <Typography
@@ -67,7 +67,6 @@ const BookCard: React.FC<BookCardProps> = ({
             color: available ? "#22bb33" : "#d32f2f",
             marginTop: "8px",
           }}
-          aria-label={available ? 'available' : `Borrowed by ${borrower_name || "N/A"}`}
         >
           {available ? (<Chip label="Available" color="success" variant="outlined" />) : `Borrowed by ${borrower_name || "N/A"}`}
         </Typography>
