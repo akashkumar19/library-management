@@ -3,6 +3,8 @@ import { Button } from "@progress/kendo-react-buttons";
 import React, { useState } from "react";
 import { GENRES } from "../core/constants/genre";
 import { BookProps } from "../models";
+import { validateField, validateForm, hasErrors } from "../core/utils/validationUtils";
+
 
 interface AddEditBookFormProps {
   initialData?: BookProps;
@@ -12,7 +14,6 @@ interface AddEditBookFormProps {
   ) => void;
 }
 
-const ERROR_MESSAGE = 'Field is required';
 const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit }) => {
   const genreList = GENRES;
   const [formData, setFormData] = useState({
@@ -22,44 +23,25 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
     isbn: initialData?.isbn || "",
   });
 
-  const [error, setError] = useState<BookProps>({
+  const [errors, setErrors] = useState<BookProps>({
     title: '',
     author: '',
     genre: '',
     isbn: ''
-  })
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setError((prev) => ({ ...prev, [name]: value === '' ? ERROR_MESSAGE : ''}))
+    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
   };
 
-  const validateForm = () => {
-    const newError = {
-      title: '',
-      author: '',
-      genre: '',
-      isbn: ''
-    }
-    if (!formData.title.trim()) {
-      newError.title = ERROR_MESSAGE
-    }
-    if (!formData.author.trim()) {
-      newError.author = ERROR_MESSAGE
-    }
-    if (!formData.genre.trim()) {
-      newError.genre = ERROR_MESSAGE
-    }
-    if (!formData.isbn.trim()) {
-      newError.isbn = ERROR_MESSAGE
-    }
-    setError(newError);
-    return !Object.values(formData).some((val)=>(val === ''))
-  }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if(validateForm()) {
+    const newErrors = validateForm(formData);
+    setErrors(newErrors);
+
+    if (!hasErrors(newErrors)) {
       onSubmit(formData, setFormData);
     }
   };
@@ -68,7 +50,7 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
     <form noValidate onSubmit={handleSubmit}>
       <Box sx={{ maxWidth: 500 }}>
         <TextField
-          error={!!error.title}
+          error={!!errors.title}
           label="Title"
           name="title"
           value={formData.title}
@@ -76,10 +58,10 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           fullWidth
           margin="normal"
           required
-          helperText={error.title}
+          helperText={errors.title}
         />
         <TextField
-          error={!!error.author}
+          error={!!errors.author}
           label="Author"
           name="author"
           value={formData.author}
@@ -87,10 +69,10 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           fullWidth
           margin="normal"
           required
-          helperText={error.author}
+          helperText={errors.author}
         />
         <TextField
-          error={!!error.genre}
+          error={!!errors.genre}
           select
           label="Genre"
           name="genre"
@@ -99,7 +81,7 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           fullWidth
           margin="normal"
           required
-          helperText={error.genre}>
+          helperText={errors.genre}>
           {genreList.map((genre) => (
             <MenuItem key={genre} value={genre}>
               {genre.charAt(0).toUpperCase() + genre.slice(1)}
@@ -108,7 +90,7 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
         </TextField>
 
         <TextField
-          error={!!error.isbn}
+          error={!!errors.isbn}
           label="ISBN"
           name="isbn"
           value={formData.isbn}
@@ -116,7 +98,7 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           fullWidth
           margin="normal"
           required
-          helperText={error.isbn}
+          helperText={errors.isbn}
         />
         <Divider
           orientation="horizontal"
