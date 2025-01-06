@@ -31,8 +31,15 @@ export class BookController {
       }
 
       if (genre) {
-        whereClause += ' AND genre = ?';
-        params.push(genre);
+        // split the genre string into array
+        const genreArray = String(genre).split(",");
+
+        // construct the where clause
+        const placeholders = genreArray.map(() => "?").join(" OR genre = ");
+        whereClause += ` AND genre = ${placeholders}`;
+
+        // Add the genreArray to parameters
+        params.push(...genreArray);
       }
 
       if (availability !== undefined) {

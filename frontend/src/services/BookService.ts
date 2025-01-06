@@ -18,7 +18,7 @@ const convertFiltersToParams = (filters: BookFilters & { page: number; perPage: 
     }
 
     if (filters.genre) {
-        params.genre = filters.genre;
+        params.genre = filters.genre.join(',');
     }
 
     if (filters.availability !== undefined) {

@@ -6,7 +6,7 @@ describe("BookFilter Component", () => {
   const mockFilters = {
     search: "",
     author: "",
-    genre: "",
+    genre: [],
     availability: "",
   };
 

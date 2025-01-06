@@ -29,13 +29,13 @@ export interface Book {
  * @description Book filters
  * @param {string} search - Book search
  * @param {string} author - Book author
- * @param {string} genre - Book genre
+ * @param {string[]} genre - Book genre
  * @param {boolean | string} availability - Book availability
  */
 export interface BookFilters {
   search?: string;
   author?: string;
-  genre?: string;
+  genre?: string[];
   availability?: boolean | string;
 }
 

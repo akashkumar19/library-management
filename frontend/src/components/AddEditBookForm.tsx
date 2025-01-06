@@ -123,7 +123,7 @@ const AddEditBookForm: React.FC<AddEditBookFormProps> = ({ initialData, onSubmit
           flexItem
           sx={{ marginTop: 2, marginBottom: 2 }}
         />
-        <Button size="large" type="submit" fillMode={"solid"} style={{ width: '100%', backgroundColor: "#1976d2", color: "#fff" }}>
+        <Button size="large" type="submit" fillMode={"solid"} style={{ width: '100%', backgroundColor: "#1976d2", color: "#fff" }} aria-label="Submit to add book">
           SUBMIT
         </Button>
       </Box>

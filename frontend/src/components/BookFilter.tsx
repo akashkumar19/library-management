@@ -44,7 +44,7 @@ const BookFilter = ({
     const clearedFilters = {
       search: "",
       author: "",
-      genre: "",
+      genre: [],
       availability: "",
     };
 
@@ -89,6 +89,7 @@ const BookFilter = ({
       />
       <TextField
         select
+        slotProps={{select: {multiple: true}}}
         name="genre"
         label="Genre"
         variant="outlined"
@@ -97,9 +98,10 @@ const BookFilter = ({
         sx={{
           flex: "1 1 200px",
           minWidth: "200px",
-        }}>
+        }}
+        >
         {genreList.map((genre) => (
-          <MenuItem key={genre} value={genre}>
+          <MenuItem key={genre} value={genre} aria-label={genre}>
             {genre.charAt(0).toUpperCase() + genre.slice(1)}
           </MenuItem>
         ))}
@@ -123,7 +125,8 @@ const BookFilter = ({
         variant="contained"
         color="secondary"
         onClick={handleClearAllFilters}
-        sx={{ height: "fit-content" }}>
+        sx={{ height: "fit-content" }}
+        aria-label="clear all applied filters">
         Clear All
       </Button>
     </Box>

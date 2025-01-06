@@ -17,7 +17,7 @@ describe('BookService', () => {
 
   describe('getBooks', () => {
     it('should fetch books with the given filters', async () => {
-      const filters = { search: 'Test', author: 'John Doe', genre: 'Action', availability: true };
+      const filters = { search: 'Test', author: 'John Doe', genre: ['Action'], availability: true };
       const mockResponse: PaginatedResponse<Book> = {
         data: [
           {
@@ -35,7 +35,7 @@ describe('BookService', () => {
     });
 
     it('should return an empty array if no books found', async () => {
-      const filters = { search: 'nonexistent', author: '', genre: '', availability: undefined };
+      const filters = { search: 'nonexistent', author: '', genre: undefined, availability: undefined };
       const mockResponse: PaginatedResponse<Book> = {
         data: [],
         pagination: { page: 1, perPage: 10, totalResultCount: 0, totalPages: 0 },

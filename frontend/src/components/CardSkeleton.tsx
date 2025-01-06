@@ -3,9 +3,10 @@ import { Skeleton } from "@progress/kendo-react-indicators";
 import { Card, CardFooter, CardHeader } from "@progress/kendo-react-layout";
 
 const CardSkeleton = () => {
-  const cardSkeleton = () => {
+  const cardSkeleton = (key: number) => {
     return (
       <Card
+        key={key}
         style={{
           width: "300px",
           padding: "16px",
@@ -94,7 +95,7 @@ const CardSkeleton = () => {
   const buildCardSkeleton = (no: number) => {
     const cardSkeletonList = [];
     for (let i = 0; i < no; i++) {
-      cardSkeletonList.push(cardSkeleton());
+      cardSkeletonList.push(cardSkeleton(i));
     }
     return cardSkeletonList;
   };

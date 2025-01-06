@@ -45,20 +45,21 @@ const BookCard: React.FC<BookCardProps> = ({
           <Typography
             variant="h6"
             style={{ fontWeight: "bold", marginBottom: "8px" }}
+            aria-label={title}
           >
             {title}
           </Typography>
       </CardHeader>
 
       <CardBody>
-        <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
+        <Typography color="textSecondary" style={{ marginBottom: "4px" }} aria-label={'Author: '+author}>
           <strong>Author:</strong> {author}
         </Typography>
-        <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
+        <Typography color="textSecondary" style={{ marginBottom: "4px" }} aria-label={'Genre: '+genre}>
           <strong>Genre:</strong>{" "}
           <Chip label={genre} sx={{ backgroundColor: "#e0f7fa", color: "#00796b" }} />
         </Typography>
-        <Typography color="textSecondary" style={{ marginBottom: "4px" }}>
+        <Typography color="textSecondary" style={{ marginBottom: "4px" }} aria-label={'ISBN: '+isbn}>
           <strong>ISBN:</strong> {isbn}
         </Typography>
         <Typography
@@ -66,6 +67,7 @@ const BookCard: React.FC<BookCardProps> = ({
             color: available ? "#22bb33" : "#d32f2f",
             marginTop: "8px",
           }}
+          aria-label={available ? 'available' : `Borrowed by ${borrower_name || "N/A"}`}
         >
           {available ? (<Chip label="Available" color="success" variant="outlined" />) : `Borrowed by ${borrower_name || "N/A"}`}
         </Typography>
@@ -77,6 +79,7 @@ const BookCard: React.FC<BookCardProps> = ({
           fillMode="solid"
           onClick={() => onEdit(id)}
           style={{ marginRight: "8px", color: "#000000" }}
+          aria-label={'Edit '+title}
         >
           EDIT
         </Button>
@@ -86,6 +89,7 @@ const BookCard: React.FC<BookCardProps> = ({
           fillMode="solid"
           onClick={() => onDelete(id)}
           style={{ marginRight: "8px", color: "#FFFFFF", backgroundColor: "#B30000" }}
+          aria-label={'Delete '+title}
         >
           DELETE
         </Button>): null}
@@ -101,6 +105,7 @@ const BookCard: React.FC<BookCardProps> = ({
             color: "#141414"
           }}
           onClick={() => onBorrowOrReturn(id)}
+          aria-label={available ? "Borrow " : "Return " + title}
         >
           {available ? "BORROW" : "RETURN"}
         </Button>

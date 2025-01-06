@@ -9,7 +9,7 @@ import NoBooksMessage from "../components/NoBooksMessage";
 import ReturnBookModal from "../components/ReturnBookModal";
 import SnackBar from "../components/SnackBar";
 import { PaginationObject } from "../core/models/paginatedresponse.model";
-import { Book } from "../models";
+import { Book, BookFilters } from "../models";
 import { BookService } from "../services/BookService";
 import CardSkeleton from "../components/CardSkeleton";
 import { NotificationModel } from "../core/models";
@@ -35,10 +35,10 @@ const Dashboard: React.FC = () => {
     page: 1,
     perPage: 10,
   });
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<BookFilters>({
     search: "",
     author: "",
-    genre: "",
+    genre:[],
     availability: "",
   });
 
@@ -80,7 +80,7 @@ const Dashboard: React.FC = () => {
   const handleClearFilters = () => {
     setFilters({
       author: "",
-      genre: "",
+      genre: [],
       availability: "",
       search: "",
     });
